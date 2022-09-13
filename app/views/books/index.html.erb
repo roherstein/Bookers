@@ -7,13 +7,13 @@
 
   <p>Body</p>
   <span><%= book.body %></span>
-  
+
 <span>
-  <%= link_to "show",show_path(book.id) %>
+  <%= link_to "show",book_path(book.id) %>
 </span>
 
 <%= link_to 'Edit',edit_book_path(book.id) %>
-<%= link_to 'Destroy',destroy_book_path(book.id) %>,method: :delete,"data confirm" => "本当に削除しますか？" %>
+<%= link_to 'Destroy',book_path(book.id),method: :delete, data: {confirm: "本当に削除しますか？"} %>
 
 <% end %>
 
@@ -31,9 +31,13 @@
 <%= form_with model: @book do |f| %>
   <h4>title</h4>
   <%= f.text_field :title %>
-  
+
   <h4>body</h4>
   <%= f.text_area :body %>
-  
+
   <%= f.submit 'Create Book' %>
+  
+  <%= flash[:notice] %>
+  <%= flash[:danger] %>
+  
 <% end %>

@@ -2,19 +2,20 @@ class BooksController < ApplicationController
   def new
     @book = Book.new
   end
-  
+
   def create
     @book = Book.new(book_params)
     if @book.save
-      redirect_to book_path(@book.id),success:"作成に成功しました"
+      redirect_to books_path, notice: 'Book was successfully created.'
     else
-      flash.now[:danger] = "作成に失敗しました"
+      flash.now[:danger] = "Book could not create."
       render :new
     end
   end
-  
+
   def index
     @books = Book.all
+    @book = Book.new
   end
 
   def show
@@ -24,27 +25,27 @@ class BooksController < ApplicationController
   def edit
     @book = Book.find(params[:id])
   end
-  
+
   def update
     @book = Book.find(params[:id])
-    book.update(book_params)
+    @book.update(book_params)
     if @book.save
-      redirect_to book_path(@book.id), success: "更新に成功しました"
+      redirect_to book_path(@book.id), notice: 'Book was successfully apdated.'
     else
-      flash.now[danger] = "更新に失敗しました"
+      flash.now[danger] = "Book could not apdate."
       render :new
     end
   end
-  
+
   def destroy
     book = Book.find(params[:id])
     book.destroy
-    redirect_to 'books/index'
+    redirect_to '/books'
   end
-  
+
   private
   def book_params
     params.require(:book).permit(:title,:body)
   end
-  
+
 end
