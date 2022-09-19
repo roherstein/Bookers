@@ -8,8 +8,9 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to book_path(@book.id), notice: 'Book was successfully created.'
     else
+      @books = Book.all
       flash.now[:danger] = "Book could not create."
-      render :new
+      render :index
     end
   end
 
@@ -32,8 +33,9 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to book_path(@book.id), notice: 'Book was successfully apdated.'
     else
-      flash.now[danger] = "Book could not apdate."
-      render :new
+      @books = Book.all
+      flash.now[:danger] = "Book could not apdate."
+      render :edit
     end
   end
 
